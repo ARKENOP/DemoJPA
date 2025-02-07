@@ -1,22 +1,32 @@
 package fr.epsi.b3devc1;
 
+import fr.epsi.b3devc1.bo.Livre;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 public class ConnexionJpa {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
-
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa");
-        System.out.println("Entity manager factory created");
-
         EntityManager em = emf.createEntityManager();
-        System.out.println("Entity manager created");
 
         em.getTransaction().begin();
+
+        Livre livre = em.find(Livre.class, 1);
+
+        Livre livremodif = em.find(Livre.class, 2);
+        livremodif.setAuteur("Auteur modifié");
+        livremodif.setTitre("Titre modifié");
+
         em.getTransaction().commit();
-        System.out.println("Connexion à la base de données réussie");
+
+        if (livre != null) {
+            System.out.println("Livre trouvé : " + livre.getId() + ", Titre : " + livre.getTitre() + ", Auteur : " + livre.getAuteur());
+            System.out.println("Livre modifié : " + livremodif.getId() + ", Titre : " + livremodif.getTitre() + ", Auteur : " + livremodif.getAuteur());
+        } else {
+            System.out.println("Livre non trouvé");
+        }
+
 
         em.close();
         emf.close();

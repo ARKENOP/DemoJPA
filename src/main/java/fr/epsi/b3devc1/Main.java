@@ -5,7 +5,6 @@ import jakarta.persistence.Persistence;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
 
         try(EntityManagerFactory emf = Persistence.createEntityManagerFactory("demo-jpa")) {
             System.out.println("Entity manager factory created");
