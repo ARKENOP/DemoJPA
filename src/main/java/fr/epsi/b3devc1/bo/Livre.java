@@ -1,15 +1,14 @@
 package fr.epsi.b3devc1.bo;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "livre")
 public class Livre {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "titre")
@@ -17,6 +16,9 @@ public class Livre {
 
     @Column(name = "auteur")
     private String auteur;
+
+    @ManyToMany(mappedBy = "livres")
+    private List<Emprunt> emprunts;
 
     public Livre() {
     }
